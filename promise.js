@@ -3,17 +3,17 @@ const Promise = function (callback) {
 	let tryCallback;
 	let that = this;
 
-  this.status = 'pending';
+  this.status = 'Pending';
 	var resolve = function (result) {
 		that.value = result;
-    if (that.status === 'pending' && that.value) {
-      that.status = dealResolve() ? 'resolved': 'pending';
+    if (that.status === 'Pending' && that.value) {
+      that.status = dealResolve() ? 'Fulfilled': 'Pending';
     }
 	};
   var reject = function(err) {
     that.err = err;
-    if (that.status === 'pending' && that.err) {
-      that.status = dealReject() ? 'rejected': 'pending';
+    if (that.status === 'Pending' && that.err) {
+      that.status = dealReject() ? 'Rejected': 'Pending';
     }
   };
   var dealResolve = function () {
@@ -48,19 +48,19 @@ const Promise = function (callback) {
 			rejection.push(rejectCallback);
 		}
 
-    if (that.status == 'pending' && that.err) {
-      that.status = dealReject() ? 'rejected' : 'pending';
+    if (that.status == 'Pending' && that.err) {
+      that.status = dealReject() ? 'Rejected' : 'Pending';
     }
 
-    if (that.status == 'pending' && that.value) {
-      that.status = dealResolve() ? 'resolved' : 'pending';
+    if (that.status == 'Pending' && that.value) {
+      that.status = dealResolve() ? 'Fulfilled' : 'Pending';
     }
 		return this;
 	};
 	this.catch = function(callback) {
 		catchCallback = callback;
-    if (that.status == 'pending' && that.err) {
-      that.status = dealReject() ? 'rejected' : 'pending';
+    if (that.status == 'Pending' && that.err) {
+      that.status = dealReject() ? 'Rejected' : 'Pending';
     }
 		return this;
 	};
